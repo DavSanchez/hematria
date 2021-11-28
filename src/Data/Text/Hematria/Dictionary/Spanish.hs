@@ -1,11 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+
 module Data.Text.Hematria.Dictionary.Spanish where
 
-replaceSpecialChar :: Char -> Char
-replaceSpecialChar 'á' = 'a'
-replaceSpecialChar 'é' = 'e'
-replaceSpecialChar 'í' = 'i'
-replaceSpecialChar 'ó' = 'o'
-replaceSpecialChar 'ö' = 'o'
-replaceSpecialChar 'ú' = 'u'
-replaceSpecialChar 'ü' = 'u'
-replaceSpecialChar c = c
+import qualified Data.ByteString as B
+import Data.FileEmbed
+import qualified Data.Text as T
+import Data.Text.Encoding
+
+wordList :: [T.Text]
+wordList = T.lines $ decodeUtf8 $(embedFile "data/0_palabras_todas.txt")

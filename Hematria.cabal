@@ -46,10 +46,16 @@ extra-source-files: CHANGELOG.md
 
 library
     -- Modules exported by the library.
-    exposed-modules:  MyLib
+    exposed-modules:  MyLib, Data.Text.Hematria
 
     -- Modules included in this library but not exported.
-    -- other-modules:
+    other-modules:  Data.Text.Hematria.Cache
+                  , Data.Text.Hematria.Cipher
+                  , Data.Text.Hematria.Cipher.Internal
+                  , Data.Text.Hematria.Cipher.Spanish.Simple
+                  , Data.Text.Hematria.Dictionary.Sample
+                  , Data.Text.Hematria.Dictionary.Spanish
+                  , Data.Text.Hematria.Dictionary.Types
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -59,6 +65,8 @@ library
                     , containers
                     , directory
                     , text
+                    , bytestring
+                    , file-embed
 
     -- Directories containing source files.
     hs-source-dirs:   src
