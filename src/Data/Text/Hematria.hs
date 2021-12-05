@@ -17,3 +17,8 @@ gematria c d w = (v, wordList)
   where
     v = computeNumericalValue c w
     wordList = getCipheredWords c d v
+
+gematriaFormatted :: Cipher -> Dictionary -> T.Text -> a
+gematriaFormatted c d w = undefined
+  where
+    (numValue, wordList) = gematria c d w
