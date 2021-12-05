@@ -47,4 +47,4 @@ wordWithValue :: Cipher -> T.Text -> (Int, S.Set T.Text)
 wordWithValue c w = (computeNumericalValue c w, S.singleton w)
 
 getCipheredWords :: Cipher -> Dictionary -> Int -> Maybe [T.Text]
-getCipheredWords c d v = S.toDescList <$> IM.lookup v (dict $ getCipheredDictionary c d)
+getCipheredWords c d v = S.toAscList <$> IM.lookup v (dict $ getCipheredDictionary c d)
