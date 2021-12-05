@@ -2,7 +2,7 @@
 
 module Data.Text.Hematria.Dictionary.Sample where
 
-import qualified Data.Text as T
+import Data.Text (Text)
 
-sampleWordList :: [T.Text]
+sampleWordList :: [Text]
 sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria", "Ritual"]

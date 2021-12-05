@@ -46,16 +46,18 @@ extra-source-files: CHANGELOG.md
 
 library
     -- Modules exported by the library.
-    exposed-modules:  MyLib, Data.Text.Hematria
+    exposed-modules:  Data.Text.Hematria
+                    , Data.Text.Hematria.Cipher
+                    , Data.Text.Hematria.Dictionary
 
     -- Modules included in this library but not exported.
     other-modules:  Data.Text.Hematria.Cache
-                  , Data.Text.Hematria.Cipher
                   , Data.Text.Hematria.Cipher.Internal
                   , Data.Text.Hematria.Cipher.Spanish.Simple
+                  , Data.Text.Hematria.Cipher.English.Simple
                   , Data.Text.Hematria.Dictionary.Sample
                   , Data.Text.Hematria.Dictionary.Spanish
-                  , Data.Text.Hematria.Dictionary.Types
+                  , Data.Text.Hematria.Dictionary.English
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -107,7 +109,11 @@ test-suite hematria-test
     hs-source-dirs:   test
 
     -- The entrypoint to the test suite.
-    main-is:          MyLibTest.hs
+    main-is:          HematriaTest.hs
 
     -- Test dependencies.
     build-depends:    base ^>=4.14.3.0
+                    , hspec
+                    , QuickCheck
+                    , containers
+                    , hematria
