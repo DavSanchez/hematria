@@ -9,9 +9,19 @@ import Data.Text.Hematria.Dictionary
 import Test.Hspec
 
 main :: IO ()
-main = hspec simpleTest
+main = hspec spec
 
-simpleTest :: Spec
-simpleTest = describe "Gematria tests" $ do
+spec :: Spec
+spec 
+  = simpleSpanishTest
+  >> simpleEnglishTest
+
+simpleSpanishTest :: Spec
+simpleSpanishTest = describe "Gematria tests: Simple Spanish Cipher" $ do
   it "Words should get the correct value for cipher" $ do
     wordWithValue SpanishSimple "Ritual" `shouldBe` (84, S.fromList ["Ritual"])
+
+simpleEnglishTest :: Spec
+simpleEnglishTest = describe "Gematria tests: Simple English Cipher" $ do
+  it "Words should get the correct value for cipher" $ do
+    wordWithValue EnglishSimple "Ritual" `shouldBe` (81, S.fromList ["Ritual"])
