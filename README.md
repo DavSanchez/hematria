@@ -16,11 +16,3 @@ Words with the same value:
   ""
   ""
 ```
-
-## Cache
-
-Cache dictionary files are structured like:
-
-- macOS:
-  - `~/Library/Caches/hematria/dict/es.txt`
-  - `~/Library/Caches/hematria/dict/en.txt`
