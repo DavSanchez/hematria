@@ -1,6 +1,7 @@
 module Data.Text.Hematria where
 
-import Cache (cacheAvailable, getDefaults, updateCache)
+import Cache (cacheAvailable, updateCache)
+import Config (getDefaults)
 import Data.Bool (bool)
 import qualified Data.IntMap.Strict as IM
 import Data.Maybe (fromMaybe)
