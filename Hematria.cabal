@@ -59,9 +59,6 @@ library
                   , Data.Text.Hematria.Cipher.Internal
                   , Data.Text.Hematria.Cipher.Spanish.Simple
                   , Data.Text.Hematria.Cipher.English.Simple
-                  , Data.Text.Hematria.Dictionary.Sample
-                  , Data.Text.Hematria.Dictionary.Spanish
-                  , Data.Text.Hematria.Dictionary.English
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -73,7 +70,6 @@ library
                     , text
                     , optparse-applicative
                     , bytestring
-                    , file-embed
                     , http-conduit
                     , http-client
                     , network-uri

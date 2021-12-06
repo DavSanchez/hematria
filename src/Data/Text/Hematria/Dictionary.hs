@@ -8,8 +8,6 @@ import qualified Data.IntMap.Strict as IM
 import qualified Data.Set as S
 import qualified Data.Text as T
 import Data.Text.Hematria.Cipher (Cipher, getCharValue)
-import Data.Text.Hematria.Dictionary.Sample (sampleWordList)
-import Data.Text.Hematria.Dictionary.Spanish (spanishWordList)
 import Data.Yaml (FromJSON)
 import GHC.Generics (Generic)
 
@@ -24,6 +22,9 @@ newtype DictionaryData = DictData
   { dict :: IM.IntMap (S.Set T.Text)
   }
   deriving (Show)
+
+sampleWordList :: [Text]
+sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria", "Ritual"]
 
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher Sample
