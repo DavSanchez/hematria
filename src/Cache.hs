@@ -39,9 +39,6 @@ updateCache = do
 cacheAvailable :: IO Bool
 cacheAvailable = doesDirectoryExist =<< getXdgDirectory XdgCache "hematria"
 
-getDefaults :: IO a
-getDefaults = undefined
-
 getDictFromCache :: String -> IO [Text]
 getDictFromCache dict = do
   exists <- doesFileExist =<< getXdgDirectory XdgCache ("hematria/dicts/" <> dict <> ".txt")
