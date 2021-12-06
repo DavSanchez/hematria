@@ -12,6 +12,7 @@ data Dictionary
   | Spanish
   | English
   | Custom
+  deriving (Show)
 
 newtype DictionaryData = DictData
   { dict :: IM.IntMap (S.Set T.Text)

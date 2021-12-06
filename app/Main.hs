@@ -1,8 +1,6 @@
 module Main where
 
-import qualified MyLib (someFunc)
+import Data.Text.Hematria
 
 main :: IO ()
-main = do
-  putStrLn "Hello, Haskell!"
-  MyLib.someFunc
+main = applyCommand =<< parseOptions 
