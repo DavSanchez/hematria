@@ -49,11 +49,12 @@ library
     exposed-modules:  Data.Text.Hematria
                     , Data.Text.Hematria.Cipher
                     , Data.Text.Hematria.Dictionary
-                    , Cache
+                    -- , Cache
 
     -- Modules included in this library but not exported.
     other-modules:  OptionsParser
-                  -- , Cache
+                  , Cache
+                  , Config
                   , Data.Text.Hematria.Cipher.Internal
                   , Data.Text.Hematria.Cipher.Spanish.Simple
                   , Data.Text.Hematria.Cipher.English.Simple

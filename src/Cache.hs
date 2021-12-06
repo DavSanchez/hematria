@@ -42,7 +42,7 @@ cacheAvailable = doesDirectoryExist =<< getXdgDirectory XdgCache "hematria"
 getDefaults :: IO a
 getDefaults = undefined
 
-getDictFromCache :: FilePath -> IO [Text]
+getDictFromCache :: String -> IO [Text]
 getDictFromCache dict = do
   exists <- doesFileExist =<< getXdgDirectory XdgCache ("hematria/dicts/" <> dict <> ".txt")
   if exists
