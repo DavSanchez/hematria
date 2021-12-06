@@ -49,10 +49,11 @@ library
     exposed-modules:  Data.Text.Hematria
                     , Data.Text.Hematria.Cipher
                     , Data.Text.Hematria.Dictionary
+                    , Cache
 
     -- Modules included in this library but not exported.
-    other-modules:  Cache
-                  , OptionsParser
+    other-modules:  OptionsParser
+                  -- , Cache
                   , Data.Text.Hematria.Cipher.Internal
                   , Data.Text.Hematria.Cipher.Spanish.Simple
                   , Data.Text.Hematria.Cipher.English.Simple
@@ -74,6 +75,8 @@ library
                     , http-conduit
                     , http-client
                     , network-uri
+                    , tar
+                    , zlib
 
     -- Directories containing source files.
     hs-source-dirs:   src

@@ -87,8 +87,8 @@ update = command "update" (info (pure Update) (progDesc "Update cache (needed fi
 
 parseDictionary :: ReadM Dictionary
 parseDictionary = eitherReader $ \case
-  "es" -> pure Spanish
-  "en" -> pure English
+  "spanish" -> pure Spanish
+  "english" -> pure English
   _ -> Left "Invalid dictionary"
 
 parseCipher :: ReadM Cipher

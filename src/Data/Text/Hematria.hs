@@ -37,9 +37,9 @@ applyCommand opts = cacheAvailable >>= bool (error "No cache found") (performGem
 performGematria opts = do
   defaults <- getDefaults
   let c = flip fromMaybe (optCipher opts) undefined -- (undefined) Get default Cipher
-  let d = flip fromMaybe (optDictionary opts) undefined -- (undefined) Get default Dictionary
-  let w = word opts
-  let (numValue, wordList) = gematria c d w
+      d = flip fromMaybe (optDictionary opts) undefined -- (undefined) Get default Dictionary
+      w = word opts
+      (numValue, wordList) = gematria c d w
   putStrLn $ "The numerical value of " <> T.unpack w <> " is " <> show numValue
   case wordList of
     Nothing -> putStrLn "No words in the dictionary have the same numerical value"
