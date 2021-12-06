@@ -6,6 +6,7 @@ import qualified Data.Text as T
 import Data.Text.Hematria.Cipher (Cipher, getCharValue)
 import Data.Text.Hematria.Dictionary.Sample (sampleWordList)
 import Data.Text.Hematria.Dictionary.Spanish (spanishWordList)
+import Cache (getDictFromCache)
 
 data Dictionary
   = Sample
@@ -21,13 +22,13 @@ newtype DictionaryData = DictData
 
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher Sample
-getDictionary :: Dictionary -> [T.Text]
-getDictionary Sample = sampleWordList
-getDictionary Spanish = spanishWordList
+getDictionary :: Dictionary -> IO [T.Text]
+getDictionary Sample = pure sampleWordList
+getDictionary Spanish = getDictFromCache "spanish"
 getDictionary _ = undefined
 
-getCipheredDictionary :: Cipher -> Dictionary -> DictionaryData
-getCipheredDictionary c d = buildDictionary c $ getDictionary d
+getCipheredDictionary :: Cipher -> Dictionary -> IO DictionaryData
+getCipheredDictionary c d = buildDictionary c <$> getDictionary d
 
 -- | Builds a dictionary from the cipher data and a list of words
 buildDictionary :: Cipher -> [T.Text] -> DictionaryData
@@ -47,5 +48,5 @@ computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
 wordWithValue :: Cipher -> T.Text -> (Int, S.Set T.Text)
 wordWithValue c w = (computeNumericalValue c w, S.singleton w)
 
-getCipheredWords :: Cipher -> Dictionary -> Int -> Maybe [T.Text]
-getCipheredWords c d v = S.toAscList <$> IM.lookup v (dict $ getCipheredDictionary c d)
+getCipheredWords :: DictionaryData -> Int -> Maybe [T.Text]
+getCipheredWords d v = S.toAscList <$> IM.lookup v (dict d)
