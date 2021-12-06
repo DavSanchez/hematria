@@ -14,21 +14,14 @@ import Data.Yaml
 import GHC.Generics (Generic)
 import System.Directory (XdgDirectory (XdgConfig), doesFileExist, getXdgDirectory)
 import System.IO (hPutStrLn, stderr)
+import GHC.Natural (Natural)
 
 data Config = Config
   { dictionary :: Dictionary,
     cipher :: Cipher,
-    num_shown :: Int
+    num_shown :: Natural
   }
   deriving (Show, FromJSON, Generic)
-
-getDefaults :: IO a
-getDefaults = undefined
-
-loadConfig :: IO Config
-loadConfig = do
-  defaults <- getDefaults
-  return defaults
 
 getConfig :: IO Config
 getConfig = do
@@ -45,5 +38,5 @@ defaultConfigEmbedded =
   Config
     { dictionary = Spanish,
       cipher = SpanishSimple,
-      num_shown = 5
+      num_shown = 10
     }

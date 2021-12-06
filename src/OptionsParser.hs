@@ -3,8 +3,8 @@
 module OptionsParser
   ( execParser,
     optsParser,
-    Opts(..),
-    Command(..)
+    Opts (..),
+    Command (..),
   )
 where
 
@@ -12,6 +12,7 @@ import Data.Text
 -- import Data.Text.Hematria
 import Data.Text.Hematria.Cipher
 import Data.Text.Hematria.Dictionary
+import GHC.Natural (Natural)
 import Options.Applicative
 
 data Opts
@@ -20,7 +21,7 @@ data Opts
       { -- optUpdateCache :: !Bool,
         optDictionary :: !(Maybe Dictionary),
         optCipher :: !(Maybe Cipher),
-        optShow :: !(Maybe Int),
+        optShow :: !(Maybe Natural),
         word :: !Text
       }
   deriving (Show)

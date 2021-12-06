@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Data.Text.Hematria.Dictionary where
 
@@ -23,7 +24,7 @@ newtype DictionaryData = DictData
   }
   deriving (Show)
 
-sampleWordList :: [Text]
+sampleWordList :: [T.Text]
 sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria", "Ritual"]
 
 -- | Gets the cipher from the selected from the available ones

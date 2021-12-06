@@ -1,15 +1,15 @@
 module Data.Text.Hematria where
 
 import Cache (cacheAvailable, updateCache)
-import Config (getDefaults)
+import Config (Config (cipher, dictionary, num_shown), getConfig)
 import Data.Bool (bool)
 import qualified Data.IntMap.Strict as IM
 import Data.Maybe (fromMaybe)
 import qualified Data.Set as S
 import qualified Data.Text as T
-import Data.Text.Hematria.Cipher (Cipher (SpanishSimple), getCharValue)
+import Data.Text.Hematria.Cipher (Cipher, getCharValue)
 import Data.Text.Hematria.Dictionary
-  ( Dictionary (Spanish),
+  ( Dictionary,
     DictionaryData,
     buildDictionary,
     computeNumericalValue,
@@ -18,7 +18,7 @@ import Data.Text.Hematria.Dictionary
   )
 import OptionsParser
   ( Command (Update),
-    Opts (Cmd, optCipher, optDictionary, word),
+    Opts (Cmd, optCipher, optDictionary, optShow, word),
     execParser,
     optsParser,
   )
@@ -45,13 +45,14 @@ applyCommand opts = cacheAvailable >>= bool (error "No cache found") (performGem
 
 performGematria :: Opts -> IO ()
 performGematria opts = do
-  defaults <- getDefaults
-  -- wordList <-
-  let c = flip fromMaybe (optCipher opts) SpanishSimple -- (undefined) Get default Cipher
-      d = flip fromMaybe (optDictionary opts) Spanish -- (undefined) Get default Dictionary
+  defaults <- getConfig
+  let c = fromMaybe (cipher defaults) (optCipher opts)
+      d = fromMaybe (dictionary defaults) (optDictionary opts)
+      n = fromMaybe (num_shown defaults) (optShow opts) -- Select at random from List
       w = word opts
   dd <- getCipheredDictionary c d
   let (numValue, wordList) = gematria c dd w
+  -- Perform random choosing, whith 0 selecting all words
   putStrLn $ "The numerical value of " <> T.unpack w <> " is " <> show numValue
   case wordList of
     Nothing -> putStrLn "No words in the dictionary have the same numerical value"
