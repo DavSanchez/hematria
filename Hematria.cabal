@@ -71,6 +71,9 @@ library
                     , optparse-applicative
                     , bytestring
                     , file-embed
+                    , http-conduit
+                    , http-client
+                    , network-uri
 
     -- Directories containing source files.
     hs-source-dirs:   src

@@ -9,4 +9,4 @@ import qualified Data.Text as T
 import Data.Text.Encoding ( decodeUtf8 )
 
 spanishWordList :: [T.Text]
-spanishWordList = T.lines $ decodeUtf8 $(embedFile "docs/data/es")
+spanishWordList = T.lines $ decodeUtf8 $(embedFile "site/data/spanish.txt")
