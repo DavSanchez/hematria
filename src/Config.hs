@@ -12,9 +12,9 @@ import Data.Text.Hematria.Cipher (Cipher (SpanishSimple))
 import Data.Text.Hematria.Dictionary (Dictionary (Spanish))
 import Data.Yaml
 import GHC.Generics (Generic)
+import GHC.Natural (Natural)
 import System.Directory (XdgDirectory (XdgConfig), doesFileExist, getXdgDirectory)
 import System.IO (hPutStrLn, stderr)
-import GHC.Natural (Natural)
 
 data Config = Config
   { dictionary :: Dictionary,
