@@ -1,19 +1,24 @@
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
+
 module Data.Text.Hematria.Dictionary where
 
+import Cache (getDictFromCache)
 import qualified Data.IntMap.Strict as IM
 import qualified Data.Set as S
 import qualified Data.Text as T
 import Data.Text.Hematria.Cipher (Cipher, getCharValue)
 import Data.Text.Hematria.Dictionary.Sample (sampleWordList)
 import Data.Text.Hematria.Dictionary.Spanish (spanishWordList)
-import Cache (getDictFromCache)
+import Data.Yaml (FromJSON)
+import GHC.Generics (Generic)
 
 data Dictionary
   = Sample
   | Spanish
   | English
   | Custom
-  deriving (Show)
+  deriving (Show, FromJSON, Generic)
 
 newtype DictionaryData = DictData
   { dict :: IM.IntMap (S.Set T.Text)
