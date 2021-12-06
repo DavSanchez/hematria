@@ -34,7 +34,7 @@ buildDictionary :: Cipher -> [T.Text] -> DictionaryData
 buildDictionary c wl = DictData $ IM.fromListWith (<>) $ map (wordWithValue c) wl
 
 -- | Computes the numerical value of a word using the cipher
---  >>> computeNumericalValue simpleCipher "Ritual"
+--  >>> computeNumericalValue SpanishSimple "Ritual"
 --  65
 computeNumericalValue :: Cipher -> T.Text -> Int
 computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
