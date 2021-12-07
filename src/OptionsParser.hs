@@ -5,6 +5,7 @@ module OptionsParser
     optsParser,
     Opts (..),
     Command (..),
+    Resource (..),
   )
 where
 
@@ -26,15 +27,24 @@ data Opts
       }
   deriving (Show)
 
-data Command = Update deriving (Show)
+data Command
+  = Update
+  | List Resource
+  | Value (Maybe Cipher) Text
+  deriving (Show)
+
+data Resource
+  = Cipher
+  | Dictionary
+  deriving (Show)
 
 optsParser :: ParserInfo Opts
 optsParser =
   info
     (helper <*> versionOption <*> programOptions)
-    ( fullDesc <> progDesc "optparse subcommands example"
+    ( fullDesc <> progDesc "Perform gematria from the command line."
         <> header
-          "optparse-sub-example - a small example program for optparse-applicative with subcommands"
+          "Hematria - Perform gematria from the command line. Done with Haskell."
     )
 
 versionOption :: Parser (a -> a)
@@ -81,10 +91,35 @@ gematriaOpts =
       )
 
 cmdOpts :: Parser Opts
-cmdOpts = Cmd <$> subparser update
+cmdOpts = Cmd <$> hsubparser (update <> list <> numValue)
 
 update :: Mod CommandFields Command
 update = command "update" (info (pure Update) (progDesc "Update cache (needed first to work)"))
+
+list :: Mod CommandFields Command
+list = command "list" (info listOpts (progDesc "List available resources (ciphers, dictionaries)"))
+
+listOpts :: Parser Command
+listOpts = List <$> argument parseResource (metavar "RESOURCE" <> help "Resource to list")
+
+numValue :: Mod CommandFields Command
+numValue = command "value" (info numValueOpts (progDesc "Get the numerical value of a word (cipher-dependent)"))
+
+numValueOpts :: Parser Command
+numValueOpts =
+  Value
+    <$> optional
+      ( option
+          parseCipher
+          ( long "cipher"
+              <> short 'c'
+              <> metavar "CIPHER"
+              -- <> value "out.txt"
+              <> help "Specify cipher to use"
+          )
+      )
+      <*> strArgument
+        (metavar "WORD")
 
 parseDictionary :: ReadM Dictionary
 parseDictionary = eitherReader $ \case
@@ -97,3 +132,15 @@ parseCipher = eitherReader $ \case
   "simple-es" -> pure SpanishSimple
   "simple-en" -> pure EnglishSimple
   _ -> Left "Invalid cipher"
+
+parseResource :: ReadM Resource
+parseResource = eitherReader $ \case
+  "ciphers" -> pure Cipher
+  "cipher" -> pure Cipher
+  "cphrs" -> pure Cipher
+  "cphr" -> pure Cipher
+  "dictionaries" -> pure Dictionary
+  "dictionary" -> pure Dictionary
+  "dicts" -> pure Dictionary
+  "dict" -> pure Dictionary
+  _ -> Left "Invalid resource"
