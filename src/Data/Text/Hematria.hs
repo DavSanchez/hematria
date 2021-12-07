@@ -6,6 +6,7 @@ import Cache (cacheAvailable, updateCache)
 import Config (Config (cipher, dictionary, num_shown), getConfig)
 import Data.Bool (bool)
 import qualified Data.IntMap.Strict as IM
+import Data.List (unfoldr)
 import Data.Maybe (fromMaybe)
 import qualified Data.Set as S
 import qualified Data.Text as T
@@ -27,7 +28,6 @@ import OptionsParser
     optsParser,
   )
 import System.Random (Random (randomR), RandomGen, getStdGen, uniformR)
-import Data.List (unfoldr)
 
 -- | Analyzes a word with the cipher and returns its numerical value
 --  and a list of words in the dictionary with the same value
@@ -70,9 +70,13 @@ performGematria opts = do
 printWords :: Natural -> S.Set T.Text -> IO ()
 printWords 0 ws = putStrLn $ "The words in the dictionary with the same numerical value are: " <> (show . S.toList) ws
 printWords m ws = do
-  -- g <- getStdGen
-  -- let num = unfoldr . Just $ uniformR (0, S.size ws - 1) g
-  undefined
+  let siz = fromIntegral (S.size ws) :: Natural
+  if m >= siz
+    then printWords 0 ws
+    else undefined
+
+-- g <- getStdGen
+-- let num = unfoldr . Just $ uniformR (0, S.size ws - 1) g
 
 randomWord :: (RandomGen g) => S.Set T.Text -> g -> (T.Text, g)
 randomWord s g = (S.elemAt n s, g')
