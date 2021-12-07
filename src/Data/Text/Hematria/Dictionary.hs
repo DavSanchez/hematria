@@ -4,11 +4,11 @@
 
 module Data.Text.Hematria.Dictionary where
 
-import Cache (getDictFromCache)
+import Cache (getDictFromCache, listCachedDicts)
 import qualified Data.IntMap.Strict as IM
 import qualified Data.Set as S
 import qualified Data.Text as T
-import Data.Text.Hematria.Cipher (Cipher, getCharValue)
+import Data.Text.Hematria.Cipher (Cipher, computeNumericalValue, getCharValue)
 import Data.Yaml (FromJSON)
 import GHC.Generics (Generic)
 
@@ -16,7 +16,6 @@ data Dictionary
   = Sample
   | Spanish
   | English
-  | Custom
   deriving (Show, FromJSON, Generic)
 
 newtype DictionaryData = DictData
@@ -32,7 +31,7 @@ sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria"
 getDictionary :: Dictionary -> IO [T.Text]
 getDictionary Sample = pure sampleWordList
 getDictionary Spanish = getDictFromCache "spanish"
-getDictionary _ = undefined
+getDictionary English = getDictFromCache "english"
 
 getCipheredDictionary :: Cipher -> Dictionary -> IO DictionaryData
 getCipheredDictionary c d = buildDictionary c <$> getDictionary d
@@ -40,12 +39,6 @@ getCipheredDictionary c d = buildDictionary c <$> getDictionary d
 -- | Builds a dictionary from the cipher data and a list of words
 buildDictionary :: Cipher -> [T.Text] -> DictionaryData
 buildDictionary c wl = DictData $ IM.fromListWith (<>) $ map (wordWithValue c) wl
-
--- | Computes the numerical value of a word using the cipher
---  >>> computeNumericalValue SpanishSimple "Ritual"
---  65
-computeNumericalValue :: Cipher -> T.Text -> Int
-computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
 
 -- | Computes the numerical value of a word using the cipher, returning
 --  a tuple with the numerical value and the word in a singleton set
@@ -55,5 +48,13 @@ computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
 wordWithValue :: Cipher -> T.Text -> (Int, S.Set T.Text)
 wordWithValue c w = (computeNumericalValue c w, S.singleton w)
 
-getCipheredWords :: DictionaryData -> Int -> Maybe [T.Text]
-getCipheredWords d v = S.toAscList <$> IM.lookup v (dict d)
+-- getCipheredWords :: DictionaryData -> Int -> Maybe [T.Text]
+getCipheredWords :: DictionaryData -> Int -> Maybe (S.Set T.Text)
+getCipheredWords d v = IM.lookup v (dict d)
+
+listDicts :: IO ()
+listDicts = do
+  dicts <- listCachedDicts
+  putStrLn "Available dictionaries:"
+  putStrLn "\t- sample (sample words, mainly for testing)"
+  mapM_ (\d -> putStrLn ("\t- " <> T.unpack d)) dicts
