@@ -20,13 +20,13 @@ version:            0.1.0.0
 synopsis:           Perform gematria with the command line
 
 -- A longer description of the package.
--- description:
+description:        This package allows users to perform gematria from the command line.
 
 -- URL for the project homepage or repository.
-homepage:           https://github.com/DavSanchez/hematria
+homepage:           https://davsanchez.github.io/hematria
 
 -- A URL where users can report bugs.
--- bug-reports:
+bug-reports:        https://github.com/DavSanchez/hematria/issues
 
 -- The license under which the package is released.
 license:            NONE
@@ -50,7 +50,6 @@ library
     exposed-modules:  Data.Text.Hematria
                     , Data.Text.Hematria.Cipher
                     , Data.Text.Hematria.Dictionary
-                    -- , Cache
 
     -- Modules included in this library but not exported.
     other-modules:  OptionsParser
@@ -61,7 +60,7 @@ library
                   , Data.Text.Hematria.Cipher.English.Simple
 
     -- LANGUAGE extensions used by modules in this package.
-    -- other-extensions:
+    other-extensions: OverloadedStrings
 
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.14.3.0
