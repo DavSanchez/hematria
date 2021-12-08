@@ -6,7 +6,7 @@ Perform gematria with the command line
 
 ## Usage
 
-```bash
+```console
 $ hematria update # Download dictionaries cache
 Successfully updated cache.
 
