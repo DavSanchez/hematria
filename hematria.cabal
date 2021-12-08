@@ -43,7 +43,6 @@ category:           Text
 
 -- Extra files to be distributed with the package, such as examples or a README.
 extra-source-files: CHANGELOG.md
-                  , config/hematria.yaml
 
 library
     -- Modules exported by the library.
