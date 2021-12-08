@@ -7,7 +7,7 @@ Perform gematria with the command line
 ## Usage
 
 ```console
-$ hematria update # Download dictionaries cache
+$ hematria update # Download dictionaries cache.
 Successfully updated cache.
 
 $ hematria list dicts
@@ -23,10 +23,10 @@ Available ciphers:
         - simple-es (simple, ascending value cipher)
         - simple-en (simple, ascending value cipher)
 
-$ hematria value [--cipher simple-es] "Ritual"
+$ hematria value [--cipher simple-es] "Ritual" # Cache is not needed for this.
 The numerical value of the word "Ritual" is 84.
 
-$ hematria [--cipher simple-es] [--dict spanish] [--show 5] "Ritual" # If cache is not present, the program errors.
+$ hematria [--cipher simple-es] [--dict spanish] [--show 5] "Ritual"
 The numerical value of the word "Ritual" is 84.
 Words in the dictionary with the same numerical value are:
 
