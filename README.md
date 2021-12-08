@@ -1,5 +1,7 @@
 # Hematria
 
+[![GitHub CI](https://github.com/DavSanchez/hematria/workflows/CI/badge.svg)](https://github.com/DavSanchez/hematria/actions)
+
 Perform gematria with the command line
 
 ## Usage
