@@ -12,6 +12,7 @@ import Data.Text.Hematria.Cipher (Cipher, computeNumericalValue, getCharValue)
 import qualified Data.Text.IO as TextIO
 import Data.Yaml (FromJSON)
 import GHC.Generics (Generic)
+import Data.Char (isAlpha)
 
 data Dictionary
   = Sample
@@ -30,16 +31,19 @@ sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria"
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher Sample
 getDictionary :: Dictionary -> IO [T.Text]
-getDictionary Sample = pure sampleWordList
-getDictionary Spanish = getDictFromCache "spanish"
-getDictionary English = getDictFromCache "english"
+getDictionary Sample = pure (sanitize sampleWordList)
+getDictionary Spanish = sanitize <$> getDictFromCache "spanish"
+getDictionary English = sanitize <$> getDictFromCache "english"
+
+sanitize :: [T.Text] -> [T.Text]
+sanitize = map (T.toTitle . T.strip) . filter (/= T.empty)
 
 getCipheredDictionary :: Cipher -> Dictionary -> IO DictionaryData
 getCipheredDictionary c d = buildDictionary c <$> getDictionary d
 
--- | Builds a dictionary from the cipher data and a list of words
+-- | Builds a dictionary from the cipher data and a list of words, removing the ones with value 0
 buildDictionary :: Cipher -> [T.Text] -> DictionaryData
-buildDictionary c wl = DictData $ IM.fromListWith (<>) $ map (wordWithValue c) wl
+buildDictionary c wl = DictData $ IM.delete 0 $ IM.fromListWith (<>) $ map (wordWithValue c) wl
 
 -- | Computes the numerical value of a word using the cipher, returning
 --  a tuple with the numerical value and the word in a singleton set
