@@ -16,7 +16,7 @@ jobs:
         cabal: ["3.2"]
         ghc:
           - "8.10.7"
-          - "9.2.1"
+          # - "9.2.1"
         # exclude:
         #   - os: macOS-latest
         #     ghc: 8.8.4
@@ -72,7 +72,7 @@ jobs:
         stack: ["2.7.3"]
         ghc: 
           - "8.10.7"
-          - "9.2.1"
+          # - "9.2.1"
 
     steps:
     - uses: actions/checkout@v2
