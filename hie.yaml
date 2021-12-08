@@ -1,0 +1,13 @@
+cradle:
+  cabal:
+    - path: "hematria/src"
+      component: "lib:hematria"
+
+    - path: "hematria/app/Main.hs"
+      component: "hematria:exe:hematria"
+
+    - path: "hematria/app/OptionsParser.hs"
+      component: "hematria:exe:hematria"
+
+    - path: "hematria/test"
+      component: "hematria:test:hematria-test"

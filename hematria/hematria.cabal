@@ -46,15 +46,15 @@ extra-source-files: CHANGELOG.md
 
 library
     -- Modules exported by the library.
-    exposed-modules:  Data.Text.Hematria
+    exposed-modules:  Cache
+                    , Config
+                    , Data.Text.Hematria
                     , Data.Text.Hematria.Cipher
                     , Data.Text.Hematria.Dictionary
+                    , Options
 
     -- Modules included in this library but not exported.
-    other-modules:  OptionsParser
-                  , Cache
-                  , Config
-                  , Data.Text.Hematria.Cipher.Internal
+    other-modules:  Data.Text.Hematria.Cipher.Internal
                   , Data.Text.Hematria.Cipher.Spanish.Simple
                   , Data.Text.Hematria.Cipher.English.Simple
 
@@ -66,7 +66,7 @@ library
                     , containers
                     , directory
                     , text
-                    , optparse-applicative
+                    -- , optparse-applicative
                     , http-conduit
                     , http-client
                     , network-uri
@@ -86,7 +86,7 @@ executable hematria
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules: OptionsParser
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -94,6 +94,8 @@ executable hematria
     -- Other library packages from which modules are imported.
     build-depends:
         base ^>=4.14.3.0,
+        optparse-applicative,
+        text,
         hematria
 
     -- Directories containing source files.

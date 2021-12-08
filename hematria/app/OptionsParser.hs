@@ -15,6 +15,7 @@ import Data.Text.Hematria.Dictionary
   ( Dictionary (English, Spanish),
   )
 import GHC.Natural (Natural)
+import Options (Options (..))
 import Options.Applicative
   ( Alternative ((<|>)),
     CommandFields,
@@ -45,13 +46,7 @@ import Options.Applicative
 
 data Opts
   = Cmd Command
-  | Gematria
-      { -- optUpdateCache :: !Bool,
-        optDictionary :: !(Maybe Dictionary),
-        optCipher :: !(Maybe Cipher),
-        optShow :: !(Maybe Natural),
-        word :: !Text
-      }
+  | Gematria Options
   deriving (Show)
 
 data Command
@@ -83,39 +78,41 @@ programOptions = cmdOpts <|> gematriaOpts
 gematriaOpts :: Parser Opts
 gematriaOpts =
   Gematria
-    <$> optional
-      ( option
-          parseDictionary
-          ( long "dict"
-              <> short 'd'
-              <> metavar "DICTIONARY"
-              -- <> value "out.txt"
-              <> help "Specify dictionary to use"
-          )
-      )
-    <*> optional
-      ( option
-          parseCipher
-          ( long "cipher"
-              <> short 'c'
-              <> metavar "CIPHER"
-              -- <> value "out.txt"
-              <> help "Specify cipher to use"
-          )
-      )
-    <*> optional
-      ( option
-          auto
-          ( long "show"
-              <> short 's'
-              <> metavar "NUMBER"
-              <> help "Specify how many (random) words to show."
-          )
-      )
-    <*> strArgument
-      ( metavar "WORD"
-          <> help "Word with which to perform gematria"
-      )
+    <$> ( Options
+            <$> optional
+              ( option
+                  parseDictionary
+                  ( long "dict"
+                      <> short 'd'
+                      <> metavar "DICTIONARY"
+                      -- <> value "out.txt"
+                      <> help "Specify dictionary to use"
+                  )
+              )
+            <*> optional
+              ( option
+                  parseCipher
+                  ( long "cipher"
+                      <> short 'c'
+                      <> metavar "CIPHER"
+                      -- <> value "out.txt"
+                      <> help "Specify cipher to use"
+                  )
+              )
+            <*> optional
+              ( option
+                  auto
+                  ( long "show"
+                      <> short 's'
+                      <> metavar "NUMBER"
+                      <> help "Specify how many (random) words to show."
+                  )
+              )
+            <*> strArgument
+              ( metavar "WORD"
+                  <> help "Word with which to perform gematria"
+              )
+        )
 
 cmdOpts :: Parser Opts
 cmdOpts = Cmd <$> hsubparser (update <> list <> numValue)

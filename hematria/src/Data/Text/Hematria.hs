@@ -21,13 +21,13 @@ import Data.Text.Hematria.Dictionary
   )
 import qualified Data.Text.IO as TextIO
 import GHC.Natural (Natural)
-import OptionsParser
-  ( Command (List, Update, Value),
-    Opts (Cmd, optCipher, optDictionary, optShow, word),
-    Resource (..),
-    execParser,
-    optsParser,
-  )
+import Options
+-- ( Command (List, Update, Value),
+--   Opts (Cmd, optCipher, optDictionary, optShow, word),
+--   Resource (..),
+--   execParser,
+--   optsParser,
+-- )
 import System.Exit (exitFailure)
 import System.IO (stderr)
 import System.Random (Random (randomR), RandomGen, getStdGen, randomRIO, uniformR)
@@ -45,17 +45,17 @@ gematriaFormatted c d w = undefined
   where
     (numValue, wordList) = gematria c d w
 
-parseOptions :: IO Opts
-parseOptions = execParser optsParser
+-- parseOptions :: IO Opts
+-- parseOptions = execParser optsParser
 
-applyCommand :: Opts -> IO ()
-applyCommand (Cmd Update) = updateCache
-applyCommand (Cmd (List Dictionary)) = listDicts
-applyCommand (Cmd (List Cipher)) = listCiphers
-applyCommand (Cmd (Value c w)) = getConfig >>= \conf -> printNumericalValue (fromMaybe (cipher conf) c) w
-applyCommand opts = cacheAvailable >>= bool (TextIO.hPutStrLn stderr "Cache not found. Run \"hematria update\" to populate." >> exitFailure) (performGematria opts)
+-- applyCommand :: Opts -> IO ()
+-- applyCommand (Cmd Update) = updateCache
+-- applyCommand (Cmd (List Dictionary)) = listDicts
+-- applyCommand (Cmd (List Cipher)) = listCiphers
+-- applyCommand (Cmd (Value c w)) = getConfig >>= \conf -> printNumericalValue (fromMaybe (cipher conf) c) w
+-- applyCommand opts = cacheAvailable >>= bool (TextIO.hPutStrLn stderr "Cache not found. Run \"hematria update\" to populate." >> exitFailure) (performGematria opts)
 
-performGematria :: Opts -> IO ()
+performGematria :: Options -> IO ()
 performGematria opts = do
   defaults <- getConfig
   let c = fromMaybe (cipher defaults) (optCipher opts)

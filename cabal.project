@@ -1,0 +1,4 @@
+packages: 
+  hematria
+
+tests: true
