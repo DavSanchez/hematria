@@ -7,62 +7,62 @@ on:
     branches: [master]
 
 jobs:
-  # cabal:
-  #   name: ${{ matrix.os }} / ghc ${{ matrix.ghc }}
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       os: [ubuntu-latest, macOS-latest, windows-latest]
-  #       cabal: ["3.2"]
-  #       ghc:
-  #         - "8.10.7"
-  #         - "9.2.1"
-  #       # exclude:
-  #       #   - os: macOS-latest
-  #       #     ghc: 8.8.4
-  #       #   - os: macOS-latest
-  #       #     ghc: 8.6.5
-  #       #   - os: windows-latest
-  #       #     ghc: 8.10.2
-  #       #   - os: windows-latest
-  #       #     ghc: 8.6.5
+  cabal:
+    name: ${{ matrix.os }} / ghc ${{ matrix.ghc }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        cabal: ["3.2"]
+        ghc:
+          - "8.10.7"
+          - "9.2.1"
+        # exclude:
+        #   - os: macOS-latest
+        #     ghc: 8.8.4
+        #   - os: macOS-latest
+        #     ghc: 8.6.5
+        #   - os: windows-latest
+        #     ghc: 8.10.2
+        #   - os: windows-latest
+        #     ghc: 8.6.5
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #     if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2
+      if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.ref == 'refs/heads/main'
 
-  #   - uses: actions/setup-haskell@v1.1.4
-  #     id: setup-haskell-cabal
-  #     name: Setup Haskell
-  #     with:
-  #       ghc-version: ${{ matrix.ghc }}
-  #       cabal-version: ${{ matrix.cabal }}
+    - uses: haskell/actions/setup@v1
+      id: setup-haskell-cabal
+      name: Setup Haskell
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: ${{ matrix.cabal }}
 
-  #   - name: Configure
-  #     run: |
-  #       cabal configure --enable-tests --enable-benchmarks --test-show-details=direct
+    - name: Configure
+      run: |
+        cabal configure --enable-tests --enable-benchmarks --test-show-details=direct
 
-  #   - name: Freeze
-  #     run: |
-  #       cabal freeze
+    - name: Freeze
+      run: |
+        cabal freeze
 
-  #   - uses: actions/cache@v2.1.3
-  #     name: Cache ~/.cabal/store
-  #     with:
-  #       path: ${{ steps.setup-haskell-cabal.outputs.cabal-store }}
-  #       key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
+    - uses: actions/cache@v2.1.3
+      name: Cache ~/.cabal/store
+      with:
+        path: ${{ steps.setup-haskell-cabal.outputs.cabal-store }}
+        key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
 
-  #   - name: Install dependencies
-  #     run: |
-  #       cabal build all --only-dependencies
+    - name: Install dependencies
+      run: |
+        cabal build all --only-dependencies
 
-  #   - name: Build
-  #     run: |
-  #       cabal build all
+    - name: Build
+      run: |
+        cabal build all
 
-  #   - name: Test
-  #     run: |
-  #       cabal test all
+    - name: Test
+      run: |
+        cabal test all
 
   stack:
     name: stack / ghc ${{ matrix.ghc }}
@@ -76,7 +76,7 @@ jobs:
     - uses: actions/checkout@v2
       if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.ref == 'refs/heads/main'
 
-    - uses: actions/setup-haskell@v1.1.4
+    - uses: haskell/actions/setup@v1
       name: Setup Haskell Stack
       with:
         ghc-version: ${{ matrix.ghc }}
