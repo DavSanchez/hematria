@@ -60,11 +60,10 @@ performGematria opts = do
   defaults <- getConfig
   let c = fromMaybe (cipher defaults) (optCipher opts)
       d = fromMaybe (dictionary defaults) (optDictionary opts)
-      n = fromMaybe (num_shown defaults) (optShow opts) -- Select at random from List
+      n = fromMaybe (num_shown defaults) (optShow opts)
       w = word opts
   dd <- getCipheredDictionary c d
   let (numValue, wordList) = gematria c dd w
-  -- Perform random choosing, whith 0 selecting all words
   TextIO.putStrLn $ "The numerical value of the word \"" <> w <> "\" is " <> (T.pack . show) numValue <> "."
   case wordList of
     Nothing -> TextIO.putStrLn "No words in the dictionary have the same numerical value."
