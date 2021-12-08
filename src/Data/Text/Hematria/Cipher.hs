@@ -35,10 +35,10 @@ computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
 
 listCiphers :: IO ()
 listCiphers = do
-  TextIO.putStrLn "Available ciphers:"
+  TextIO.putStrLn "Available ciphers:\n"
   TextIO.putStrLn "\t- simple-es (simple, ascending value cipher)"
   TextIO.putStrLn "\t- simple-en (simple, ascending value cipher)"
 
 printNumericalValue :: Cipher -> T.Text -> IO ()
 printNumericalValue c w = do
-  TextIO.putStrLn $ "Numerical value of word " <> w <> " is " <> (T.pack . show) (computeNumericalValue c w) <> "."
+  TextIO.putStrLn $ "The numerical value of the word " <> w <> " is " <> (T.pack . show) (computeNumericalValue c w) <> "."

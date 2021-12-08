@@ -65,7 +65,7 @@ performGematria opts = do
   dd <- getCipheredDictionary c d
   let (numValue, wordList) = gematria c dd w
   -- Perform random choosing, whith 0 selecting all words
-  TextIO.putStrLn $ "The numerical value of " <> w <> " is " <> (T.pack . show) numValue <> "."
+  TextIO.putStrLn $ "The numerical value of the word \"" <> w <> "\" is " <> (T.pack . show) numValue <> "."
   case wordList of
     Nothing -> TextIO.putStrLn "No words in the dictionary have the same numerical value."
     Just ws -> do
@@ -82,7 +82,7 @@ randomWordList m ws = do
 
 printListed :: [T.Text] -> IO ()
 printListed wl = do
-  TextIO.putStrLn "The words in the dictionary with the same numerical value are:\n"
+  TextIO.putStrLn "Words in the dictionary with the same numerical value are:\n"
   mapM_ (\d -> TextIO.putStrLn $ "\t- " <> d) wl
 
 -- https://www.programming-idioms.org/idiom/10/shuffle-a-list/826/haskell
