@@ -4,17 +4,16 @@
 
 module Config where
 
-import Data.ByteString (ByteString)
-import qualified Data.ByteString as B
 import qualified Data.Text as T
 import Data.Text.Encoding (decodeUtf8)
 import Data.Text.Hematria.Cipher (Cipher (SpanishSimple))
 import Data.Text.Hematria.Dictionary (Dictionary (Spanish))
-import Data.Yaml
+import qualified Data.Text.IO as TextIO
+import Data.Yaml (FromJSON, ParseException, decodeFileEither)
 import GHC.Generics (Generic)
 import GHC.Natural (Natural)
 import System.Directory (XdgDirectory (XdgConfig), doesFileExist, getXdgDirectory)
-import System.IO (hPutStrLn, stderr)
+import System.IO (stderr)
 
 data Config = Config
   { dictionary :: Dictionary,
@@ -30,7 +29,7 @@ getConfig = do
   if exists
     then do
       conf <- decodeFileEither configFile :: IO (Either ParseException Config)
-      either (\_ -> hPutStrLn stderr "Could not parse config file. Using defaults." >> pure defaultConfigEmbedded) pure conf
+      either (\_ -> TextIO.hPutStrLn stderr "Could not parse config file. Using defaults." >> pure defaultConfigEmbedded) pure conf
     else pure defaultConfigEmbedded
 
 defaultConfigEmbedded :: Config
@@ -38,5 +37,5 @@ defaultConfigEmbedded =
   Config
     { dictionary = Spanish,
       cipher = SpanishSimple,
-      num_shown = 10
+      num_shown = 6
     }

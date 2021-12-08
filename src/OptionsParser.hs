@@ -9,12 +9,39 @@ module OptionsParser
   )
 where
 
-import Data.Text
--- import Data.Text.Hematria
-import Data.Text.Hematria.Cipher
+import Data.Text (Text)
+import Data.Text.Hematria.Cipher (Cipher (..))
 import Data.Text.Hematria.Dictionary
+  ( Dictionary (English, Spanish),
+  )
 import GHC.Natural (Natural)
 import Options.Applicative
+  ( Alternative ((<|>)),
+    CommandFields,
+    Mod,
+    Parser,
+    ParserInfo,
+    ReadM,
+    argument,
+    auto,
+    command,
+    eitherReader,
+    execParser,
+    fullDesc,
+    header,
+    help,
+    helper,
+    hsubparser,
+    info,
+    infoOption,
+    long,
+    metavar,
+    option,
+    optional,
+    progDesc,
+    short,
+    strArgument,
+  )
 
 data Opts
   = Cmd Command

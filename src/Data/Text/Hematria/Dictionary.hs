@@ -9,6 +9,7 @@ import qualified Data.IntMap.Strict as IM
 import qualified Data.Set as S
 import qualified Data.Text as T
 import Data.Text.Hematria.Cipher (Cipher, computeNumericalValue, getCharValue)
+import qualified Data.Text.IO as TextIO
 import Data.Yaml (FromJSON)
 import GHC.Generics (Generic)
 
@@ -55,6 +56,6 @@ getCipheredWords d v = IM.lookup v (dict d)
 listDicts :: IO ()
 listDicts = do
   dicts <- listCachedDicts
-  putStrLn "Available dictionaries:"
-  putStrLn "\t- sample (sample words, mainly for testing)"
-  mapM_ (\d -> putStrLn ("\t- " <> T.unpack d)) dicts
+  TextIO.putStrLn "Available dictionaries:\n"
+  TextIO.putStrLn "\t- sample (sample words, mainly for testing)" -- Comment out for release?
+  mapM_ (\d -> TextIO.putStrLn ("\t- " <> d)) dicts

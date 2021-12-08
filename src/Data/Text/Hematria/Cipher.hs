@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Data.Text.Hematria.Cipher where
 
@@ -8,6 +9,7 @@ import qualified Data.Text as T
 import Data.Text.Hematria.Cipher.English.Simple (simpleEnglishCipher)
 import Data.Text.Hematria.Cipher.Internal (CipherData, cipher)
 import Data.Text.Hematria.Cipher.Spanish.Simple (simpleSpanishCipher)
+import qualified Data.Text.IO as TextIO
 import Data.Yaml (FromJSON)
 import GHC.Generics (Generic)
 
@@ -33,10 +35,10 @@ computeNumericalValue c w = sum $ map (getCharValue c) (T.unpack w)
 
 listCiphers :: IO ()
 listCiphers = do
-  putStrLn "Available ciphers:"
-  putStrLn "\t- simple-es (simple, ascending value cipher)"
-  putStrLn "\t- simple-en (simple, ascending value cipher)"
+  TextIO.putStrLn "Available ciphers:"
+  TextIO.putStrLn "\t- simple-es (simple, ascending value cipher)"
+  TextIO.putStrLn "\t- simple-en (simple, ascending value cipher)"
 
 printNumericalValue :: Cipher -> T.Text -> IO ()
 printNumericalValue c w = do
-  putStrLn $ "Numerical value of word " <> T.unpack w <> " is " <> show (computeNumericalValue c w) <> "."
+  TextIO.putStrLn $ "Numerical value of word " <> w <> " is " <> (T.pack . show) (computeNumericalValue c w) <> "."

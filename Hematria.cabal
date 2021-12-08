@@ -69,7 +69,6 @@ library
                     , directory
                     , text
                     , optparse-applicative
-                    , bytestring
                     , http-conduit
                     , http-client
                     , network-uri

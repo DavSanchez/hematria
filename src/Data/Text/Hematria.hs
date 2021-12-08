@@ -19,6 +19,7 @@ import Data.Text.Hematria.Dictionary
     getCipheredWords,
     listDicts,
   )
+import qualified Data.Text.IO as TextIO
 import GHC.Natural (Natural)
 import OptionsParser
   ( Command (List, Update, Value),
@@ -27,7 +28,9 @@ import OptionsParser
     execParser,
     optsParser,
   )
-import System.Random (Random (randomR), RandomGen, getStdGen, uniformR)
+import System.Exit (exitFailure)
+import System.IO (stderr)
+import System.Random (Random (randomR), RandomGen, getStdGen, randomRIO, uniformR)
 
 -- | Analyzes a word with the cipher and returns its numerical value
 --  and a list of words in the dictionary with the same value
@@ -50,7 +53,7 @@ applyCommand (Cmd Update) = updateCache
 applyCommand (Cmd (List Dictionary)) = listDicts
 applyCommand (Cmd (List Cipher)) = listCiphers
 applyCommand (Cmd (Value c w)) = getConfig >>= \conf -> printNumericalValue (fromMaybe (cipher conf) c) w
-applyCommand opts = cacheAvailable >>= bool (error "No cache found") (performGematria opts)
+applyCommand opts = cacheAvailable >>= bool (TextIO.hPutStrLn stderr "Cache not found. Run \"hematria update\" to populate." >> exitFailure) (performGematria opts)
 
 performGematria :: Opts -> IO ()
 performGematria opts = do
@@ -62,23 +65,32 @@ performGematria opts = do
   dd <- getCipheredDictionary c d
   let (numValue, wordList) = gematria c dd w
   -- Perform random choosing, whith 0 selecting all words
-  putStrLn $ "The numerical value of " <> T.unpack w <> " is " <> show numValue <> "."
+  TextIO.putStrLn $ "The numerical value of " <> w <> " is " <> (T.pack . show) numValue <> "."
   case wordList of
-    Nothing -> putStrLn "No words in the dictionary have the same numerical value"
-    Just ws -> printWords n ws -- putStrLn $ "The words in the dictionary with the same numerical value are: " <> show ws
+    Nothing -> TextIO.putStrLn "No words in the dictionary have the same numerical value."
+    Just ws -> do
+      words <- randomWordList n ws
+      printListed words
 
-printWords :: Natural -> S.Set T.Text -> IO ()
-printWords 0 ws = putStrLn $ "The words in the dictionary with the same numerical value are: " <> (show . S.toList) ws
-printWords m ws = do
+randomWordList :: Natural -> S.Set T.Text -> IO [T.Text]
+randomWordList 0 ws = pure $ S.toList ws
+randomWordList m ws = do
   let siz = fromIntegral (S.size ws) :: Natural
-  if m >= siz
-    then printWords 0 ws
-    else undefined
+   in if m >= siz
+        then randomWordList 0 ws
+        else take (fromIntegral m) <$> shuffleWords (S.toList ws)
 
--- g <- getStdGen
--- let num = unfoldr . Just $ uniformR (0, S.size ws - 1) g
+printListed :: [T.Text] -> IO ()
+printListed wl = do
+  TextIO.putStrLn "The words in the dictionary with the same numerical value are:\n"
+  mapM_ (\d -> TextIO.putStrLn $ "\t- " <> d) wl
 
-randomWord :: (RandomGen g) => S.Set T.Text -> g -> (T.Text, g)
-randomWord s g = (S.elemAt n s, g')
-  where
-    (n, g') = randomR (0, S.size s - 1) g
+-- https://www.programming-idioms.org/idiom/10/shuffle-a-list/826/haskell
+shuffleWords :: [T.Text] -> IO [T.Text]
+shuffleWords x =
+  if length x < 2
+    then pure x
+    else do
+      i <- randomRIO (0, length x - 1)
+      r <- shuffleWords (take i x ++ drop (i + 1) x)
+      pure (x !! i : r)
