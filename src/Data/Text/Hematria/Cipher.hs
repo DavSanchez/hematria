@@ -41,4 +41,4 @@ listCiphers = do
 
 printNumericalValue :: Cipher -> T.Text -> IO ()
 printNumericalValue c w = do
-  TextIO.putStrLn $ "The numerical value of the word " <> w <> " is " <> (T.pack . show) (computeNumericalValue c w) <> "."
+  TextIO.putStrLn $ "The numerical value of the word \"" <> w <> "\" is " <> (T.pack . show) (computeNumericalValue c w) <> "."
