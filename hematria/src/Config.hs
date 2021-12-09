@@ -14,6 +14,7 @@ import GHC.Generics (Generic)
 import GHC.Natural (Natural)
 import System.Directory (XdgDirectory (XdgConfig), doesFileExist, getXdgDirectory)
 import System.IO (stderr)
+import Data.Functor (($>))
 
 data Config = Config
   { dictionary :: Dictionary,
@@ -29,7 +30,7 @@ getConfig = do
   if exists
     then do
       conf <- decodeFileEither configFile :: IO (Either ParseException Config)
-      either (\_ -> TextIO.hPutStrLn stderr "Could not parse config file. Using defaults." >> pure defaultConfigEmbedded) pure conf
+      either (\_ -> TextIO.hPutStrLn stderr "Could not parse config file. Using defaults." $> defaultConfigEmbedded) pure conf
     else pure defaultConfigEmbedded
 
 defaultConfigEmbedded :: Config
