@@ -15,8 +15,7 @@ import GHC.Generics (Generic)
 import Data.Char (isAlpha)
 
 data Dictionary
-  = Sample
-  | Spanish
+  = Spanish
   | English
   deriving (Show, FromJSON, Generic)
 
@@ -25,13 +24,9 @@ newtype DictionaryData = DictData
   }
   deriving (Show)
 
-sampleWordList :: [T.Text]
-sampleWordList = ["Brujería", "Viaje Astral", "Hechizos", "Conjuros", "Lujuria", "Ritual"]
-
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher Sample
 getDictionary :: Dictionary -> IO [T.Text]
-getDictionary Sample = pure (sanitize sampleWordList)
 getDictionary Spanish = sanitize <$> getDictFromCache "spanish"
 getDictionary English = sanitize <$> getDictFromCache "english"
 
