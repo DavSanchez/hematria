@@ -51,7 +51,7 @@ getValidConfig =
               cipher = EnglishSimple,
               num_shown = 3 :: Natural
             }
-    conf `shouldBe` expectedConf
+    (conf `shouldBe` expectedConf) <* cleanupAppDir XdgConfig
 
 simpleSpanishTest :: Spec
 simpleSpanishTest = it "Words should get the correct value for cipher" $ do
