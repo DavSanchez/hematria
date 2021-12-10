@@ -67,6 +67,9 @@ cleanupAppDir xdgDir = do
   exists <- doesPathExist dir
   if exists then removeDirectoryRecursive dir else pure ()
 
+-- These tests deal with the actual files that the "production" application would use.
+-- The recommendation for the time being is to test using a dedicated CI (e.g. GitHub Actions)
+-- If you test locally, please backup your own files first. TODO solve this with a custom wrapper.
 cleanup :: IO ()
 cleanup = cleanupAppDir XdgCache >> cleanupAppDir XdgConfig
 
