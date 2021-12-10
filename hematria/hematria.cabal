@@ -115,7 +115,7 @@ test-suite hematria-test
     hs-source-dirs:   test
 
     -- The entrypoint to the test suite.
-    main-is:          HematriaTest.hs
+    main-is:          Spec.hs
 
     -- Test dependencies.
     build-depends:    base ^>=4.14.3.0
@@ -124,4 +124,5 @@ test-suite hematria-test
                     , directory
                     , text
                     , containers
+                    , yaml
                     , hematria

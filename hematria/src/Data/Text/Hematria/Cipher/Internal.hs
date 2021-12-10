@@ -6,7 +6,7 @@ import Data.Maybe
 newtype CipherData = CipherData
   { cipher :: M.Map Char Int
   }
-  deriving (Show)
+  deriving (Eq, Show)
 
 instance Semigroup CipherData where
   CipherData a <> CipherData b = CipherData $ a <> b

@@ -1,4 +1,3 @@
-defaults:
-  dictionary: Spanish
-  cipher: SpanishSimple
-  num_shown: 5
+dictionary: Spanish
+cipher: SpanishSimple
+num_shown: 5

@@ -17,12 +17,12 @@ import Data.Char (isAlpha)
 data Dictionary
   = Spanish
   | English
-  deriving (Show, FromJSON, Generic)
+  deriving (Eq, Show, FromJSON, Generic)
 
 newtype DictionaryData = DictData
   { dict :: IM.IntMap (S.Set T.Text)
   }
-  deriving (Show)
+  deriving (Eq, Show)
 
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher Sample

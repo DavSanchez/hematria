@@ -21,7 +21,7 @@ data Config = Config
     cipher :: Cipher,
     num_shown :: Natural
   }
-  deriving (Show, FromJSON, Generic)
+  deriving (Eq, Show, FromJSON, Generic)
 
 getConfig :: IO Config
 getConfig = do

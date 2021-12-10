@@ -2,7 +2,6 @@
 
 module Data.Text.Hematria where
 
-import Cache (cacheAvailable, updateCache)
 import Config (Config (cipher, dictionary, num_shown), getConfig)
 import Data.Bool (bool)
 import qualified Data.IntMap.Strict as IM
@@ -44,16 +43,6 @@ gematriaFormatted :: Cipher -> DictionaryData -> T.Text -> a
 gematriaFormatted c d w = undefined
   where
     (numValue, wordList) = gematria c d w
-
--- parseOptions :: IO Opts
--- parseOptions = execParser optsParser
-
--- applyCommand :: Opts -> IO ()
--- applyCommand (Cmd Update) = updateCache
--- applyCommand (Cmd (List Dictionary)) = listDicts
--- applyCommand (Cmd (List Cipher)) = listCiphers
--- applyCommand (Cmd (Value c w)) = getConfig >>= \conf -> printNumericalValue (fromMaybe (cipher conf) c) w
--- applyCommand opts = cacheAvailable >>= bool (TextIO.hPutStrLn stderr "Cache not found. Run \"hematria update\" to populate." >> exitFailure) (performGematria opts)
 
 performGematria :: Options -> IO ()
 performGematria opts = do
