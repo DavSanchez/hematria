@@ -11,4 +11,4 @@ data Options = Options
     optCipher :: !(Maybe Cipher),
     optShow :: !(Maybe Natural),
     word :: !Text
-  } deriving (Show)
+  } deriving (Eq, Show)
