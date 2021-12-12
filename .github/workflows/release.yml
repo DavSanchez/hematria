@@ -54,6 +54,19 @@ jobs:
           tagRegex: "v(.*)"
           tagRegexGroup: 1
 
+      - if: matrix.os == 'ubuntu-latest'
+        name: Install SDL2 and glew (Ubuntu)
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev
+          sudo apt-get install libglew-dev
+          
+      - if: matrix.os == 'macos-latest'
+        name: Install SDL2 and glew (macOS)
+        run: |
+          brew install sdl2
+          brew install glew
+
       - name: Setup Haskell
         uses: haskell/actions/setup@v1
         id: setup-haskell-cabal
