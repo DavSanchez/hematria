@@ -69,12 +69,12 @@ jobs:
       run: |
         cabal test all
 
-  cabal-windows:
-    name: ${{ matrix.os }} / ghc ${{ matrix.ghc }} (CLI, Windows only)
+  cabal-windows-cli:
+    name: ${{ matrix.os }} / ghc ${{ matrix.ghc }} (CLI only)
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest] # Pending "windows-latest"
+        os: [windows-latest]
         cabal: ["3.2"]
         ghc:
           - "8.10.7"
