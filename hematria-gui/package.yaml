@@ -1,18 +1,20 @@
-name:                hematria-gui
-version:             0.1.0.0
+name: hematria-gui
+version: 0.1.0.0
 #synopsis:
 #description:
-homepage:            https://davsanchez.github.io/hematria
-license:             BSD3
-author:              David Sánchez
-maintainer:          david.sanchez.lt@gmail.com
-copyright:           2021 David Sánchez
+homepage: https://davsanchez.github.io/hematria
+license: BSD3
+author: David Sánchez
+maintainer: david.sanchez.lt@gmail.com
+copyright: 2021 David Sánchez
 #category:
 extra-source-files:
-- README.md
+  - README.md
+data-files:
+  - assets/fonts/*.ttf
 
 default-extensions:
-- OverloadedStrings
+  - OverloadedStrings
 
 dependencies:
   - base >= 4.14 && < 5
@@ -24,8 +26,8 @@ dependencies:
 
 executables:
   app:
-    source-dirs:      src
-    main:             Main.hs
+    source-dirs: src
+    main: Main.hs
     ghc-options:
-    - -fwarn-incomplete-patterns
-    - -threaded
+      - -fwarn-incomplete-patterns
+      - -threaded
