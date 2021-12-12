@@ -127,8 +127,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - if: matrix.os == 'ubuntu-latest'
-      name: Install SDL2 and glew (Ubuntu)
+    - name: Install SDL2 and glew (Ubuntu)
       run: |
         sudo apt-get update
         sudo apt-get install libsdl2-dev
