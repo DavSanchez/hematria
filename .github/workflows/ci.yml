@@ -127,6 +127,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - if: matrix.os == 'ubuntu-latest'
+      name: Install SDL2 and glew (Ubuntu)
+      run: |
+        sudo apt-get update
+        sudo apt-get install libsdl2-dev
+        sudo apt-get install libglew-dev
+
     - uses: haskell/actions/setup@v1
       name: Setup Haskell Stack
       with:
