@@ -62,7 +62,7 @@ library
     other-extensions: OverloadedStrings
 
     -- Other library packages from which modules are imported.
-    build-depends:    base >=4.14.3.0
+    build-depends:    base >=4.14.3 && <5
                     , containers
                     , directory
                     , text
@@ -93,7 +93,7 @@ executable hematria
 
     -- Other library packages from which modules are imported.
     build-depends:
-        base >=4.14.3.0,
+        base >=4.14.3 && <5,
         optparse-applicative,
         text,
         hematria
@@ -118,7 +118,7 @@ test-suite hematria-test
     main-is:          Spec.hs
 
     -- Test dependencies.
-    build-depends:    base >=4.14.3.0
+    build-depends:    base >=4.14.3 && <5
                     , hspec
                     , QuickCheck
                     , directory
