@@ -26,14 +26,14 @@ Available ciphers:
 $ hematria value [--cipher simple-es] "Ritual" # Cache is not needed for this.
 The numerical value of the word "Ritual" is 84.
 
-$ hematria [--cipher simple-es] [--dict spanish] [--show 5] "Ritual"
+$ hematria [--cipher simple-es] [--dict spanish] [--show 6] "Ritual"
 The numerical value of the word "Ritual" is 84.
 Words in the dictionary with the same numerical value are:
 
-        - fogonera
-        - cojuelo
-        - inalienable
-        - hermética
-        - silbante
-        - tostada
+        - Fogonera
+        - Cojuelo
+        - Inalienable
+        - Hermética
+        - Silbante
+        - Tostada
 ```
