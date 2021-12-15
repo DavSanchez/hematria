@@ -1,0 +1,11 @@
+packages: 
+  hematria
+  hematria-gui
+
+constraints:
+  aeson +ordered-keymap
+
+tests: true
+
+package nanovg
+    flags: +stb_truetype

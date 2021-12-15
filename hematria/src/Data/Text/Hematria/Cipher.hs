@@ -16,7 +16,7 @@ import GHC.Generics (Generic)
 data Cipher
   = SpanishSimple
   | EnglishSimple
-  deriving (Show, FromJSON, Generic)
+  deriving (Eq, Show, FromJSON, Generic)
 
 -- | Gets the cipher from the selected from the available ones
 --  >>> getCipher SpanishSimple
