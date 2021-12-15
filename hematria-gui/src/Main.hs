@@ -11,54 +11,57 @@ import qualified Monomer.Lens as L
 import Paths_hematria_gui
 import TextShow
 
-newtype AppModel = AppModel
-  { _clickCount :: Int
-  }
-  deriving (Eq, Show)
+import Types
+import Data.Default (Default(def))
+
+-- newtype AppModel = AppModel
+--   { _clickCount :: Int
+--   }
+--   deriving (Eq, Show)
 
 data AppEvent
-  = AppInit
-  | AppIncrease
+  = HematriaInit
+  | HematriaPerform
   deriving (Eq, Show)
 
-makeLenses 'AppModel
+-- makeLenses 'AppModel
 
 buildUI ::
-  WidgetEnv AppModel AppEvent ->
-  AppModel ->
-  WidgetNode AppModel AppEvent
+  WidgetEnv HematriaModel AppEvent ->
+  HematriaModel ->
+  WidgetNode HematriaModel AppEvent
 buildUI wenv model = widgetTree
   where
     widgetTree =
       vstack
-        [ label "Hello world",
+        [ label "Perform Gematria:",
           spacer,
           hstack
-            [ label $ "Click count: " <> showt (model ^. clickCount),
+            [ label $ "Click count: ", -- <> showt (model ^. clickCount),
               spacer,
-              button "Increase count" AppIncrease
+              button "Get Dict. Cache" undefined -- AppIncrease
             ]
         ]
         `styleBasic` [padding 10]
 
 handleEvent ::
-  WidgetEnv AppModel AppEvent ->
-  WidgetNode AppModel AppEvent ->
-  AppModel ->
+  WidgetEnv HematriaModel AppEvent ->
+  WidgetNode HematriaModel AppEvent ->
+  HematriaModel ->
   AppEvent ->
-  [AppEventResponse AppModel AppEvent]
+  [AppEventResponse HematriaModel AppEvent]
 handleEvent wenv node model evt = case evt of
-  AppInit -> []
-  AppIncrease -> [Model (model & clickCount +~ 1)]
+  HematriaInit -> []
+  HematriaPerform -> undefined -- [Model (model & clickCount +~ 1)]
 
 main :: IO ()
 main = do
   font <- getDataFileName "assets/fonts/Roboto-Regular.ttf"
   let config =
-        [ appWindowTitle "Hello world",
+        [ appWindowTitle "Hematria",
           appTheme darkTheme,
           appFontDef "Regular" (pack font),
-          appInitEvent AppInit
+          appInitEvent HematriaInit
         ]
-      model = AppModel 0
+      model = HematriaModel def
    in startApp model handleEvent buildUI config

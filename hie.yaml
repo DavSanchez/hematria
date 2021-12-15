@@ -15,5 +15,8 @@ cradle:
     - path: "hematria-gui/src/Main.hs"
       component: "hematria-gui:exe:app"
 
+    - path: "hematria-gui/src/Types.hs"
+      component: "hematria-gui:exe:app"
+
     - path: "hematria-gui/src/Paths_hematria_gui.hs"
       component: "hematria-gui:exe:app"
