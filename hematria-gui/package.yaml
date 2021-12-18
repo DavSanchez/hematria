@@ -23,6 +23,7 @@ dependencies:
   - monomer
   - text
   - text-show
+  - hematria
 
 executables:
   app:
