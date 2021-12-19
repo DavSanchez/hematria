@@ -3,11 +3,24 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: monomer-1.2.0.0@sha256:81512cfa5652702b34962d3f31302400978722d8fd5ad9c56e6bb885c2f0da90,16146
+    pantry-tree:
+      size: 13936
+      sha256: 90562a1aca176488a74da76626d8ac73ab463c11fd6148fa6850bab4476a0d1b
+  original:
+    hackage: monomer-1.2.0.0
+- completed:
+    hackage: nanovg-0.8.0.0@sha256:aa8d2864d17daae3ba8c834ea523d805b8a68414e9ba1df00b102b89348ec954,4914
+    pantry-tree:
+      size: 2558
+      sha256: f179e5e90a4f58c23bc989979721b1246836e7db0213fb8d7aa5dc3b7d1de791
+  original:
+    hackage: nanovg-0.8.0.0
 snapshots:
 - completed:
-    size: 609544
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2021/12/11.yaml
-    sha256: d7cff420864932928372a9a7f1c61d32002bfe490e569ba6eaf15bfd0a62f3e7
-  original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2021/12/11.yaml
+    size: 586103
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/19.yaml
+    sha256: 32716534fff554b7f90762130fdb985cabf29f157758934dd1c8f3892a646430
+  original: lts-18.19
