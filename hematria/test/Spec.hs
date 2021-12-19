@@ -54,11 +54,11 @@ getValidConfig =
     (conf `shouldBe` expectedConf) <* cleanupAppDir XdgConfig
 
 simpleSpanishTest :: Spec
-simpleSpanishTest = it "Words should get the correct value for cipher" $ do
+simpleSpanishTest = it "Words should get the correct value for cipher (Spanish Simple)" $ do
   wordWithValue SpanishSimple "Ritual" `shouldBe` (84, S.fromList ["Ritual"])
 
 simpleEnglishTest :: Spec
-simpleEnglishTest = it "Words should get the correct value for cipher" $ do
+simpleEnglishTest = it "Words should get the correct value for cipher (English Simple)" $ do
   wordWithValue EnglishSimple "Ritual" `shouldBe` (81, S.fromList ["Ritual"])
 
 cleanupAppDir :: XdgDirectory -> IO ()
