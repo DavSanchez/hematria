@@ -27,6 +27,14 @@ executable app
   other-modules:
       Types
       Paths_hematria_gui
+      Tutorial01_Basics
+      Tutorial02_Styling
+      Tutorial03_LifeCycle
+      Tutorial04_Tasks
+      Tutorial05_Producers
+      Tutorial06_Composite
+      Tutorial07_CustomWidget
+      Tutorial08_Themes
   hs-source-dirs:
       src
   default-extensions:
@@ -40,4 +48,6 @@ executable app
     , monomer
     , text
     , text-show
+    , random
+    , time
   default-language: Haskell2010
