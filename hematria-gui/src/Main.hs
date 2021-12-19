@@ -54,8 +54,18 @@ buildUI wenv model = widgetTree
             ]
             `styleBasic` [paddingV 5],
           hgrid
-            [ hstack [], -- Cipher
-              hstack [], -- Dict
+            [ hstack [         
+                label "Type:",
+                spacer,
+                textDropdownS (activeTodo . todoType) todoTypes `nodeKey` "todoType",
+                spacer -- Added here to avoid grid expanding it to 1/3 total width
+                ], -- Cipher
+              hstack [          
+                label "Type:",
+                spacer,
+                textDropdownS (activeTodo . todoType) todoTypes `nodeKey` "todoType",
+                spacer -- Added here to avoid grid expanding it to 1/3 total width
+                ], -- Dict
               filler,
               button "Dict. Cache" HematriaGetCache
             ]
