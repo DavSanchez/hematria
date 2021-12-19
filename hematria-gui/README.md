@@ -1,10 +1,10 @@
-# Monomer starter application
+# Hematria GUI
 
-Starter application for the Monomer library, including:
+Built from the starter application for the Monomer library, which includes:
 
 - Dependencies
 - Model and events type
 - Event handler
 - UI builder
 
-For more information, check https://github.com/fjvallarino/monomer.
+For more information, check <https://github.com/fjvallarino/monomer>.
