@@ -10,25 +10,39 @@ import Data.Text.Hematria.Cipher
 import Data.Text.Hematria.Dictionary
 import Monomer
 
-data HematriaItem = HematriaItem
-  { _hematriaItemDict :: Dictionary,
-    _hematriaItemCipher :: Cipher,
-    _hematriaItemWord :: Text
+-- data HematriaItem = HematriaItem
+--   { _hematriaItemDict :: Dictionary,
+--     _hematriaItemCipher :: Cipher,
+--     _hematriaItemWord :: Text
+--   }
+--   deriving (Eq, Show)
+
+-- instance Default HematriaItem where
+--   def =
+--     HematriaItem
+--       { _hematriaItemDict = Spanish,
+--         _hematriaItemCipher = SpanishSimple,
+--         _hematriaItemWord = ""
+--       }
+
+data HematriaModel = HematriaModel
+  { -- _hematriaItem :: HematriaItem,
+    _hematriaDict :: Dictionary,
+    _hematriaCipher :: Cipher,
+    _hematriaWord :: Text,
+    _hematriaResult :: [Text]
   }
   deriving (Eq, Show)
 
-instance Default HematriaItem where
+instance Default HematriaModel where
   def =
-    HematriaItem
-      { _hematriaItemDict = Spanish,
-        _hematriaItemCipher = SpanishSimple,
-        _hematriaItemWord = ""
+    HematriaModel
+      { _hematriaDict = Spanish,
+        _hematriaCipher = SpanishSimple,
+        _hematriaWord = "",
+        _hematriaResult = []
       }
 
-newtype HematriaModel = HematriaModel
-  { _activeHematriaItem :: HematriaItem
-  }
-  deriving (Eq, Show)
-
 makeLenses 'HematriaModel
-makeLenses 'HematriaItem
+
+-- makeLenses 'HematriaItem
